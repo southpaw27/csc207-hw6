@@ -10,7 +10,7 @@ public class DutchNFlag {
 	 * @param args
 	 */
 	
-	public static String[] belgianFlag(String[] colors) {
+	public static String[] dutchFlag(String[] colors) {
 		int i = 0;
 		int redFlag = 0;
 		int blueFlag = colors.length - 1;
@@ -41,7 +41,7 @@ public class DutchNFlag {
 	public static void main(String[] args) {
 		PrintWriter pen = new PrintWriter(System.out, true);
 		String[] unsortedFlag = new String[] {"blue", "red", "white", "red", "red", "white", "blue", "red", "blue", "white"};
-		String[] sortedFlag = belgianFlag(unsortedFlag);
+		String[] sortedFlag = dutchFlag(unsortedFlag);
 		for(int i = 0; i < sortedFlag.length; i++){
 		pen.println(sortedFlag[i] + " ");
 		}
