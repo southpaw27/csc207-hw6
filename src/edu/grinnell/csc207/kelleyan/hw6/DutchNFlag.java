@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 /**
  * 
  * @author southpaw14, Andrew Kelley
- * @author Mira Hall
+ * @author m13hall, Mira Hall
  * 
  * DutchNFlag is a class that contains the method to solve
  * the classic problem of the Dutch National Flag. In this
@@ -25,38 +25,50 @@ public class DutchNFlag {
 	 * red, white, then blue.
 	 * 
 	 * @pre the strings in the array must only be either "red",
-	 * "white", or "blue" in english and lower case.
+	 * "white", or "blue" in English and lower case.
 	 * 
 	 * @param colors, a string array of red, white, and blue
 	 * colors
 	 * 
 	 * @return the same array, colors, the is now sorted by 
 	 * color into the order of red, then white, then blue.
+	 * Returns an error if list is null, empty, or contains a string that is not
+	 * red, white or blue.
 	 */
-	public static String[] dutchFlag(String[] colors) {
+	public static String[] dutchFlag(String[] colors) throws Exception{
+		//if the array is null or contains no elements, throw exception
+		try{
+			String x = colors[0];}
+		catch(Exception e){
+			throw new Exception("Invalid entry, no colors given");
+		}
 		int i = 0; //the iterator
 		int redFlag = 0; /*keeps track of the location of the
 						 farthest to the right "red" */
 		int blueFlag = colors.length - 1;  /*keeps track of the
 					location of the farthest to the right "red" */
 		while (i < colors.length){
-			if(colors[i] == "white"){
-				i++; /* White colors can be skipped over as they
+			if(colors[i] == "white" || colors[i] == "red" || colors[i] == "blue"){
+				if(colors[i] == "white"){
+					i++; /* White colors can be skipped over as they
 				will be in the middle and all the other colors
 				will be placed around them */
-			} else if(colors[i] == "red" && i > redFlag){
-				swap(colors, redFlag, i);
-				redFlag++;
-				continue; /* Need to recheck what was switched 
+				} else if(colors[i] == "red" && i > redFlag){
+					swap(colors, redFlag, i);
+					redFlag++;
+					continue; /* Need to re-check what was switched 
 				into colors[i] */
-			} else if(colors[i] == "blue" && i < blueFlag){
-				swap(colors, blueFlag, i);
-				blueFlag--;
-				continue; /* Need to recheck what was switched 
+				} else if(colors[i] == "blue" && i < blueFlag){
+					swap(colors, blueFlag, i);
+					blueFlag--;
+					continue; /* Need to re-check what was switched 
 				into colors[i] */
-			} else if(i <= redFlag || i >= blueFlag) {
-				i++; /* In these cases, the colors are in their
+				} else if(i <= redFlag || i >= blueFlag) {
+					i++; /* In these cases, the colors are in their
 				correct places, so no swapping is needed */
+				}
+			} else{
+				throw new Exception("Invalid color entry");
 			}
 		} //end while
 		return colors; //return original array, now sorted
@@ -79,9 +91,10 @@ public class DutchNFlag {
 	 * main allows for a demonstration of the above algorithm.
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception{
 		PrintWriter pen = new PrintWriter(System.out, true);
 		String[] unsortedFlag = new String[] {"blue", "red", "white", "red", "red", "white", "blue", "red", "blue", "white"};
+
 		String[] sortedFlag = dutchFlag(unsortedFlag);
 		for(int i = 0; i < sortedFlag.length; i++){
 		pen.println(sortedFlag[i] + " ");
